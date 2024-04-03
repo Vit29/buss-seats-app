@@ -83,6 +83,13 @@ function check (container) {
             paths[1].classList.toggle('selectFill');
             // verificar si el asiento ya habia sido escogido 
             if (selectedSeatsIds.includes(seat.dataset.id)) {
+                
+                const index = selectedSeatsIds.indexOf(seat.dataset.id)
+                console.log(index);
+                if (index !== -1) {
+                    selectedSeatsIds.splice(index,1)
+                    selectedSeatsPrice.splice(index,1)
+                }
                 return;
             } else {
                 // mardar a un array los elementos seleccionados 
@@ -90,6 +97,7 @@ function check (container) {
                 selectedSeatsPrice.push(seat.dataset.precio);
             }
         }
+        console.log(selectedSeatsIds);
         console.log('id-num-asiento ' + seat.dataset.id);
         console.log('precio ' + seat.dataset.precio);
         console.log('destino ' + seat.dataset.destino);
@@ -99,10 +107,18 @@ function check (container) {
     });
 };
 
-// function occupied (seatsSold) {
-//     seatsSold.forEach((id)=> {
-//     })
-// }
+function handleSeatSelection (event) {
+    const seat = e.target.closest('svg');
+    if (!seat) {
+        return;
+    }
+    // cerificar si el aasiento esta disponible
+    if (seat.dataset.disponible == 'no'){
+        alert('asiento ocupado amigo');
+        // showError('asiento ocupado amigo');
+        return;
+    }
+}
 
 function occupiedRandom (seats) {
     // creando lista falsa de asientos compardos
