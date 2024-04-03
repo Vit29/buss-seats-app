@@ -1,0 +1,261 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: rgb(238, 204, 166);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 90%;
+    height: 90%;
+    border: dashed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.container-butom-seatings {
+    border: dashed;
+    width: 90%;
+    height: 20%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.buttoms{
+    border: dashed;
+    /* width: 95%; */
+
+    display: flex;
+    align-items: center;
+}
+
+.buttoms button {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    margin: 0 5px;
+    border: none;
+    text-transform: uppercase;
+    background: rgb(141, 141, 221);
+    color: #fff;
+    font-weight: bold;
+}
+
+.buttoms button:hover {
+    background: rgb(108, 108, 231);
+}
+
+.seatings {
+    border: dashed red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.normal, .cama{
+    cursor: pointer;
+    width: 35px;
+    font-size: 0;
+    transform: rotate(180deg);
+}
+
+.cama{
+    width: 50px;
+}
+
+.seatings > * {
+    margin: 10px;
+}
+
+.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#6B6A6A;}
+.st3{fill-rule:evenodd;clip-rule:evenodd;fill:#dadada;}
+
+.selectLine {fill-rule:evenodd;clip-rule:evenodd;fill:#dfb90f;}
+.selectFill {fill-rule:evenodd;clip-rule:evenodd;fill:#f7e182;}
+
+.buyLine {fill-rule:evenodd;clip-rule:evenodd;fill:#63ad02;}
+.buyFill {fill-rule:evenodd;clip-rule:evenodd;fill:#a2e960;}
+
+.ocupadoLine {fill-rule:evenodd;clip-rule:evenodd;fill:#df0f0f;}
+.ocupadoFill {fill-rule:evenodd;clip-rule:evenodd;fill:#e96060;}
+
+.soldLine {animation: soldLine 2s ease;}
+.soldFill {animation: soldFill 2s ease;}
+
+@keyframes soldLine {
+    0% {fill: #63ad02}
+    100% {fill: #df0f0f}
+}
+@keyframes soldFill {
+    0% {fill: #a2e960}
+    100% {fill: #e96060}
+}
+
+.buss {
+    width: 90%;
+    height: 50%;
+    border: dashed;
+    padding: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.buss-floor {
+    border: dashed;
+    border-radius: 20px 50px 50px 20px;
+
+    width: 100%;
+    height: 90%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.buss-front {
+    border: dashed blue;
+    width: 20%;
+    height: 95%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 0 40px 40px 0 ;
+    display: none;
+}
+/* 
+.buss-floor-one {
+    
+} */
+
+.buss-floor-two {
+    border: dashed red;
+    display: none;
+}
+
+.container-seatings {
+    border: red dashed;
+    width: 80%;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: repeat(5,1fr);
+    gap: 5px;
+
+    padding: 10px;
+}
+
+.container-seatings.two {
+    width: 95%;
+    grid-template-columns: repeat(12,1fr);
+}
+
+.seat {
+    border: dashed 2px;
+    display: flex;
+    justify-content: center;
+}
+
+.show {
+    display: block;
+}
+.hidden {
+    display: none;
+}
+
+.seatings-satatus, .veremos {
+    border: dashed;
+    width: 40%;
+    /* height: 90%; */
+}
+/* piso uno */
+.div1 { grid-area: 1 / 8 / 2 / 9; }
+.div2 { grid-area: 2 / 8 / 3 / 9; }
+.div3 { grid-area: 1 / 7 / 2 / 8; }
+.div4 { grid-area: 2 / 7 / 3 / 8; }
+.div5 { grid-area: 1 / 6 / 2 / 7; }
+.div6 { grid-area: 2 / 6 / 3 / 7; }
+.div7 { grid-area: 1 / 5 / 2 / 6; }
+.div8 { grid-area: 2 / 5 / 3 / 6; }
+.div9 { grid-area: 1 / 4 / 2 / 5; }
+.div10 { grid-area: 2 / 4 / 3 / 5; }
+.div11 { grid-area: 1 / 3 / 2 / 4; }
+.div12 { grid-area: 2 / 3 / 3 / 4; }
+.div13 { grid-area: 1 / 2 / 2 / 3; }
+.div14 { grid-area: 2 / 2 / 3 / 3; }
+.div15 { grid-area: 1 / 1 / 2 / 2; }
+.div16 { grid-area: 2 / 1 / 3 / 2; }
+.div17 { grid-area: 4 / 3 / 5 / 4; }
+.div18 { grid-area: 5 / 3 / 6 / 4; }
+.div19 { grid-area: 4 / 4 / 5 / 5; }
+.div20 { grid-area: 5 / 4 / 6 / 5; }
+.div21 { grid-area: 4 / 5 / 5 / 6; }
+.div22 { grid-area: 5 / 5 / 6 / 6; }
+.div23 { grid-area: 4 / 6 / 5 / 7; }
+.div24 { grid-area: 5 / 6 / 6 / 7; }
+.div25 { grid-area: 4 / 7 / 5 / 8; }
+.div26 { grid-area: 5 / 7 / 6 / 8; }
+.div27 { grid-area: 4 / 8 / 5 / 9; }
+.div28 { grid-area: 5 / 8 / 6 / 9; }
+.div29 { grid-area: 4 / 9 / 5 / 10; }
+.div30 { grid-area: 5 / 9 / 6 / 10; }
+.div31 { grid-area: 4 / 10 / 5 / 11; }
+.div32 { grid-area: 5 / 10 / 6 / 11; }
+.div33 { grid-area: 1 / 9 / 3 / 11; }
+.div34 { grid-area: 4 / 1 / 6 / 3; }
+/*  piso dos  */
+.div35 { grid-area: 1 / 12 / 2 / 13; }
+.div36 { grid-area: 2 / 12 / 3 / 13; }
+.div37 { grid-area: 1 / 11 / 2 / 12; }
+.div38 { grid-area: 2 / 11 / 3 / 12; }
+.div39 { grid-area: 1 / 8 / 2 / 9; }
+.div40 { grid-area: 2 / 8 / 3 / 9; }
+.div41 { grid-area: 1 / 7 / 2 / 8; }
+.div42 { grid-area: 2 / 7 / 3 / 8; }
+.div43 { grid-area: 1 / 6 / 2 / 7; }
+.div44 { grid-area: 2 / 6 / 3 / 7; }
+.div45 { grid-area: 1 / 5 / 2 / 6; }
+.div46 { grid-area: 2 / 5 / 3 / 6; }
+.div47 { grid-area: 1 / 4 / 2 / 5; }
+.div48 { grid-area: 2 / 4 / 3 / 5; }
+.div49 { grid-area: 1 / 3 / 2 / 4; }
+.div50 { grid-area: 2 / 3 / 3 / 4; }
+.div51 { grid-area: 1 / 2 / 2 / 3; }
+.div52 { grid-area: 2 / 2 / 3 / 3; }
+.div53 { grid-area: 1 / 1 / 2 / 2; }
+.div54 { grid-area: 2 / 1 / 3 / 2; }
+.div55 { grid-area: 4 / 3 / 5 / 4; }
+.div56 { grid-area: 5 / 3 / 6 / 4; }
+.div57 { grid-area: 4 / 4 / 5 / 5; }
+.div58 { grid-area: 5 / 4 / 6 / 5; }
+.div59 { grid-area: 4 / 5 / 5 / 6; }
+.div60 { grid-area: 5 / 5 / 6 / 6; }
+.div61 { grid-area: 4 / 6 / 5 / 7; }
+.div62 { grid-area: 5 / 6 / 6 / 7; }
+.div63 { grid-area: 4 / 7 / 5 / 8; }
+.div64 { grid-area: 5 / 7 / 6 / 8; }
+.div65 { grid-area: 4 / 8 / 5 / 9; }
+.div66 { grid-area: 5 / 8 / 6 / 9; }
+.div67 { grid-area: 4 / 9 / 5 / 10; }
+.div68 { grid-area: 5 / 9 / 6 / 10; }
+.div69 { grid-area: 4 / 10 / 5 / 11; }
+.div70 { grid-area: 5 / 10 / 6 / 11; }
+.div71 { grid-area: 4 / 11 / 5 / 12; }
+.div72 { grid-area: 5 / 11 / 6 / 12; }
+.div73 { grid-area: 4 / 12 / 5 / 13; }
+.div74 { grid-area: 5 / 12 / 6 / 13; }
+.div75 { grid-area: 1 / 9 / 3 / 11; }
+.div76 { grid-area: 4 / 1 / 6 / 3; }
+.div77 { grid-area: 3 / 1 / 4 / 2; }
