@@ -6,6 +6,8 @@ const contanerseatsTwo = document.getElementById('container-seatings-two');
 let normalSeatSvg = document.querySelector('.normal');
 let bedSeatSvg = document.querySelector('.cama');
 const btnBuySeats = document.getElementById('buy-seats');
+const seatingsStatus = document.getElementById('seatings-satatus');
+const tiketSeats = document.getElementById('tiket-seats');
 
 normalSeatSvg=  normalSeatSvg.cloneNode(true)
 bedSeatSvg = bedSeatSvg.cloneNode(true)
@@ -33,18 +35,11 @@ function createSeats(container, start, end, seatType) {
     for (let i = start; i < end; i++) {
         const seat = document.createElement('div');
         seat.className = `div${i} seat`;
-
         seatType.dataset.id = `${i}`;
         
         assignPrice(seatType);
-        
         assignStairs(seat, seatType)
-        // if (seatType.dataset.id == '33' ){
-        //     seat.appendChild(seatType.cloneNode(false));
-        //     seat.innerHTML = 'Escaleras'
-        // } else {
-        //     seat.appendChild(seatType.cloneNode(true));
-        // }
+        
         container.appendChild(seat);
     }
     select(container)
@@ -58,7 +53,7 @@ function assignPrice(seatType) {
 }
 
 function assignStairs (seat,seatType) {
-    if (seatType.dataset.id == '33' ||  seatType.dataset.id == '34' || seatType.dataset.id == '76' || seatType.dataset.id == '75'){
+    if (seatType.dataset.id == '33' ||  seatType.dataset.id == '34' || seatType.dataset.id == '75' || seatType.dataset.id == '76') {
             seat.appendChild(seatType.cloneNode(false));
             seat.innerHTML = 'Escaleras'
         } else {
@@ -125,13 +120,12 @@ function selectSeat(seat) {
     selectedSeatsPrice.push(seat.dataset.precio);
     // console.log(selectedSeatsIds);
     // console.log(selectedSeatsPrice);
-
-    console.log('Asiento:', seat.dataset.id);
-    console.log('Precio:', seat.dataset.precio);
-    console.log('Destino:', seat.dataset.destino);
-    console.log('Disponible:', seat.dataset.disponible);
-    console.log('Ventana:', seat.dataset.ventana);
-    console.log('♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥');
+    seatingsStatus.innerHTML = `<li>Asiento: ${seat.dataset.id}</li>
+                                <li>Precio: ${seat.dataset.precio}</li>
+                                <li>Destino: ${seat.dataset.destino}</li>
+                                <li>Disponible: ${seat.dataset.disponible}</li>
+                                <li>Ventana: ${seat.dataset.ventana}</li>
+                                `
 }
 
 function deselectSeat(seat) {
@@ -196,16 +190,18 @@ function buySeats (selectedSeatsIds, selectedSeatsPrice) {
             path[1].classList.remove('buyFill');
             path[0].classList.add('soldLine');
             path[1].classList.add('soldFill');
-            // path[0].classList.add('ocupadoLine');
-            // path[1].classList.add('ocupadoFill');
             seat.dataset.disponible = 'no'
         },2000)
     });
+
+
     const suma = selectedSeatsPrice.reduce((acc,crr) => acc + Number(crr),0);
     console.log('total ', suma);
     console.log(selectedSeatsIds);
     console.log(selectedSeatsPrice);
-    // occupied(selectedSeatsIds)
+
+    tiketSeats.innerHTML = `<li>Asientos: ${selectedSeatsIds.length}</li>
+                            <li>Total: ${suma}</li>`
 }
 
 btnBuySeats.addEventListener('click', () => {

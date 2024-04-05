@@ -5,7 +5,7 @@
 }
 
 body {
-    background: rgb(238, 204, 166);
+    background: #eecca6;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -13,7 +13,7 @@ body {
 }
 
 .container {
-    width: 90%;
+    width: 80%;
     height: 90%;
     border: dashed;
     display: flex;
@@ -32,8 +32,6 @@ body {
 
 .buttoms{
     border: dashed;
-    /* width: 95%; */
-
     display: flex;
     align-items: center;
 }
@@ -124,23 +122,66 @@ body {
     background-size: cover;
 }
 
+
 .buss-front {
     border: dashed blue;
     width: 20%;
-    height: 95%;
+    height: 100%;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     border-radius: 0 40px 40px 0 ;
-    display: none;
+    position: relative;
+    /* display: none; */
 }
-/* 
+
+.buss-front::before {
+    content: '';
+    position: absolute;
+    background: #6B6A6A;
+    width: 50px;
+    height: 95%;
+    right: 5%;
+    top: 2.5%;
+    border-radius: 0 30px 30px 0;
+}
+
+.buss-front::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: 20%;
+    top: 10%;
+    background: #6B6A6A;
+    border-radius: 50%;
+    border: 5px solid #eecca6;
+}
+
+.buss-front div {
+    width: 50px;
+    height: 40px;
+    background: #6B6A6A;
+    position: absolute;
+    top: 14%;
+}
+
+.buss-front div::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 10px;
+    right: -65%;
+    top: 480%;
+    background:  #6B6A6A;
+}
+
 .buss-floor-one {
-    
-} */
+    display: flex;
+}
 
 .buss-floor-two {
-    border: dashed red;
+    border: dashed #6B6A6A;
     display: none;
 }
 
@@ -176,10 +217,10 @@ body {
     display: none;
 }
 
-.seatings-satatus, .veremos {
+.seatings-satatus, .tiket-seats {
     border: dashed;
     width: 40%;
-    /* height: 90%; */
+    padding: 10px;
 }
 
 .errorMessage {
