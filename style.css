@@ -88,8 +88,8 @@ body {
 .ocupadoLine {fill-rule:evenodd;clip-rule:evenodd;fill:#df0f0f;}
 .ocupadoFill {fill-rule:evenodd;clip-rule:evenodd;fill:#e96060;}
 
-.soldLine {animation: soldLine 2s ease;}
-.soldFill {animation: soldFill 2s ease;}
+.soldLine {animation: soldLine 2s ease forwards;}
+.soldFill {animation: soldFill 2s ease forwards;}
 
 @keyframes soldLine {
     0% {fill: #63ad02}
@@ -163,9 +163,10 @@ body {
 }
 
 .seat {
-    border: dashed 2px;
+    /* border: dashed 2px; */
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .show {
@@ -180,6 +181,29 @@ body {
     width: 40%;
     /* height: 90%; */
 }
+
+.errorMessage {
+    color:rgb(243, 98, 98);
+    height: 25px;
+    padding: 2px 10px;
+    text-align: center;
+    background-color: rgb(61, 55, 55);
+    position: absolute;
+    z-index: 5;
+    border-radius: 10px 10px 10px 0;
+    left: 50%;
+    bottom: 50%;
+    font-weight: bolder;
+}
+.error-animation {
+    animation: errorUp 1s forwards ease-in;
+}
+
+@keyframes errorUp {
+    0%, 70%{transform: translateY(0); opacity: 1;}
+    100% { transform: translateY(-50px); opacity: 0;}
+}
+
 /* piso uno */
 .div1 { grid-area: 1 / 8 / 2 / 9; }
 .div2 { grid-area: 2 / 8 / 3 / 9; }

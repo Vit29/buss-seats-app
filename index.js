@@ -32,15 +32,22 @@ addSeatInformation(seatObj, bedSeatSvg)
 function createSeats(container, start, end, seatType) {
     for (let i = start; i < end; i++) {
         const seat = document.createElement('div');
-        seatType.dataset.id = `${i}`
         seat.className = `div${i} seat`;
+
+        seatType.dataset.id = `${i}`;
         
-        assignPrice(seatType, end);
+        assignPrice(seatType);
         
-        seat.appendChild(seatType.cloneNode(true));
+        assignStairs(seat, seatType)
+        // if (seatType.dataset.id == '33' ){
+        //     seat.appendChild(seatType.cloneNode(false));
+        //     seat.innerHTML = 'Escaleras'
+        // } else {
+        //     seat.appendChild(seatType.cloneNode(true));
+        // }
         container.appendChild(seat);
     }
-    check(container)
+    select(container)
     assignWindowProperty(container.querySelectorAll('.normal, .cama'));
 }
 
@@ -48,6 +55,15 @@ function assignPrice(seatType) {
     if(seatType.dataset.id >= 35) {
         seatType.dataset.precio = 1200;
     }
+}
+
+function assignStairs (seat,seatType) {
+    if (seatType.dataset.id == '33' ||  seatType.dataset.id == '34' || seatType.dataset.id == '76' || seatType.dataset.id == '75'){
+            seat.appendChild(seatType.cloneNode(false));
+            seat.innerHTML = 'Escaleras'
+        } else {
+            seat.appendChild(seatType.cloneNode(true));
+        }
 }
 
 function assignWindowProperty (seats) {
@@ -62,62 +78,83 @@ function assignWindowProperty (seats) {
 
 let selectedSeatsIds = [];
 let selectedSeatsPrice = [];
-function check (container) {
-    container.addEventListener('click', (e) => {
-        // traer el asiento selecionado
-        const seat = e.target.closest('svg');
-        if (!seat) {
-            return;
-        }
-        // cerificar si el aasiento esta disponible
-        if (seat.dataset.disponible == 'no'){
-            alert('asiento ocupado amigo');
-            // showError('asiento ocupado amigo');
-            return;
 
-        } else {
-            // traer el path de el asiento para estatus seleccion 
-            const paths = seat.querySelectorAll('path')
-            // color de seleccion de asientos
-            paths[0].classList.toggle('selectLine');
-            paths[1].classList.toggle('selectFill');
-            // verificar si el asiento ya habia sido escogido 
-            if (selectedSeatsIds.includes(seat.dataset.id)) {
-                
-                const index = selectedSeatsIds.indexOf(seat.dataset.id)
-                console.log(index);
-                if (index !== -1) {
-                    selectedSeatsIds.splice(index,1)
-                    selectedSeatsPrice.splice(index,1)
-                }
-                return;
-            } else {
-                // mardar a un array los elementos seleccionados 
-                selectedSeatsIds.push(seat.dataset.id);
-                selectedSeatsPrice.push(seat.dataset.precio);
-            }
-        }
-        console.log(selectedSeatsIds);
-        console.log('id-num-asiento ' + seat.dataset.id);
-        console.log('precio ' + seat.dataset.precio);
-        console.log('destino ' + seat.dataset.destino);
-        console.log('disponible ' + seat.dataset.disponible);
-        console.log('ventana ' + seat.dataset.ventana);
-        console.log('♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ');
-    });
-};
+function select (container) {
+    container.addEventListener('click', handleSeatSelection)
+}
 
-function handleSeatSelection (event) {
+function handleSeatSelection (e) {
     const seat = e.target.closest('svg');
     if (!seat) {
         return;
     }
-    // cerificar si el aasiento esta disponible
+    
     if (seat.dataset.disponible == 'no'){
-        alert('asiento ocupado amigo');
-        // showError('asiento ocupado amigo');
+        showError(seat,'ocupado');
         return;
     }
+
+    if (isSelected(seat)) {
+        deselectSeat(seat);
+    } else {
+        selectSeat(seat);
+    }
+}
+
+function showError (seat,message) {
+    const errorMessage =  document.createElement('div');
+    const contanerSeat = seat.parentElement;
+
+    errorMessage.innerHTML = message
+    errorMessage.classList.add('errorMessage','error-animation')
+    contanerSeat.appendChild(errorMessage);
+    setTimeout(() => {
+        contanerSeat.removeChild(errorMessage);
+    },1000)
+}
+
+function isSelected(seat) {
+    return selectedSeatsIds.includes(seat.dataset.id);
+}
+
+function selectSeat(seat) {
+    
+    markSelectedSeat(seat)
+
+    selectedSeatsIds.push(seat.dataset.id);
+    selectedSeatsPrice.push(seat.dataset.precio);
+    // console.log(selectedSeatsIds);
+    // console.log(selectedSeatsPrice);
+
+    console.log('Asiento:', seat.dataset.id);
+    console.log('Precio:', seat.dataset.precio);
+    console.log('Destino:', seat.dataset.destino);
+    console.log('Disponible:', seat.dataset.disponible);
+    console.log('Ventana:', seat.dataset.ventana);
+    console.log('♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥');
+}
+
+function deselectSeat(seat) {
+
+    unmarkSelectedSeat(seat);
+    
+    const index = selectedSeatsIds.indexOf(seat.dataset.id)
+    if (index !== -1) {
+        selectedSeatsIds.splice(index,1)
+        selectedSeatsPrice.splice(index,1)
+    }
+}
+
+function markSelectedSeat (seat) {
+    const paths = seat.querySelectorAll('path');
+    paths[0].classList.add('selectLine');
+    paths[1].classList.add('selectFill');
+}
+
+function unmarkSelectedSeat(seat) {
+    const paths = seat.querySelectorAll('path');
+    paths[0].classList.remove('selectLine');
+    paths[1].classList.remove('selectFill');
 }
 
 function occupiedRandom (seats) {
@@ -159,8 +196,8 @@ function buySeats (selectedSeatsIds, selectedSeatsPrice) {
             path[1].classList.remove('buyFill');
             path[0].classList.add('soldLine');
             path[1].classList.add('soldFill');
-            path[0].classList.add('ocupadoLine');
-            path[1].classList.add('ocupadoFill');
+            // path[0].classList.add('ocupadoLine');
+            // path[1].classList.add('ocupadoFill');
             seat.dataset.disponible = 'no'
         },2000)
     });
