@@ -30,10 +30,14 @@ body {
 .container-butom-seatings {
     /* border: dashed; */
     width: 90%;
-    height: 20%;
+    height: 10%;
     display: flex;
     justify-content: space-evenly;
     background-color: var(--color-fondo);
+}
+
+.container-butom-seatings:nth-child(3) {
+    height: 45%;
 }
 
 .buttoms{
@@ -107,13 +111,14 @@ body {
 .buss {
     /* border: dashed; */
     width: 90%;
-    height: 50%;
-    padding: 10px;
+    height: 40%;
+    padding: 5px ;
 
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--color-fondo);
+    border-radius: 20px 50px 50px 20px;
 }
 
 .buss-floor {
@@ -121,7 +126,7 @@ body {
     border-radius: 20px 50px 50px 20px;
 
     width: 100%;
-    height: 90%;
+    height: 100%;
 
     background-position: center;
     background-repeat: no-repeat;

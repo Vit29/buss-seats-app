@@ -137,6 +137,8 @@ function deselectSeat(seat) {
         selectedSeatsIds.splice(index,1)
         selectedSeatsPrice.splice(index,1)
     }
+
+    seatingsStatus.innerHTML = ``
 }
 
 function markSelectedSeat (seat) {
