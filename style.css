@@ -1,3 +1,8 @@
+
+:root {
+    --color-fondo: #ad9f9f;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -13,9 +18,9 @@ body {
 }
 
 .container {
+    /* border: dashed; */
     width: 80%;
     height: 90%;
-    border: dashed;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,15 +28,16 @@ body {
 }
 
 .container-butom-seatings {
-    border: dashed;
+    /* border: dashed; */
     width: 90%;
     height: 20%;
     display: flex;
     justify-content: space-evenly;
+    background-color: var(--color-fondo);
 }
 
 .buttoms{
-    border: dashed;
+    /* border: dashed; */
     display: flex;
     align-items: center;
 }
@@ -53,7 +59,7 @@ body {
 }
 
 .seatings {
-    border: dashed red;
+    /* border: dashed red; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,17 +80,17 @@ body {
     margin: 10px;
 }
 
-.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#6B6A6A;}
-.st3{fill-rule:evenodd;clip-rule:evenodd;fill:#dadada;}
+.st0{fill:#6B6A6A;}
+.st3{fill:#dadada;}
 
-.selectLine {fill-rule:evenodd;clip-rule:evenodd;fill:#dfb90f;}
-.selectFill {fill-rule:evenodd;clip-rule:evenodd;fill:#f7e182;}
+.selectLine {fill:#dfb90f;}
+.selectFill {fill:#f7e182;}
 
-.buyLine {fill-rule:evenodd;clip-rule:evenodd;fill:#63ad02;}
-.buyFill {fill-rule:evenodd;clip-rule:evenodd;fill:#a2e960;}
+.buyLine {fill:#63ad02;}
+.buyFill {fill:#a2e960;}
 
-.ocupadoLine {fill-rule:evenodd;clip-rule:evenodd;fill:#df0f0f;}
-.ocupadoFill {fill-rule:evenodd;clip-rule:evenodd;fill:#e96060;}
+.ocupadoLine {fill:#df0f0f;}
+.ocupadoFill {fill:#e96060;}
 
 .soldLine {animation: soldLine 2s ease forwards;}
 .soldFill {animation: soldFill 2s ease forwards;}
@@ -99,16 +105,16 @@ body {
 }
 
 .buss {
+    /* border: dashed; */
     width: 90%;
     height: 50%;
-    border: dashed;
     padding: 10px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--color-fondo);
 }
-
 
 .buss-floor {
     border: dashed;
@@ -122,9 +128,8 @@ body {
     background-size: cover;
 }
 
-
 .buss-front {
-    border: dashed blue;
+    /* border: dashed blue; */
     width: 20%;
     height: 100%;
     background-repeat: no-repeat;
@@ -132,33 +137,46 @@ body {
     background-size: cover;
     border-radius: 0 40px 40px 0 ;
     position: relative;
-    /* display: none; */
-}
-
-.buss-front::before {
-    content: '';
-    position: absolute;
-    background: #6B6A6A;
-    width: 50px;
-    height: 95%;
-    right: 5%;
-    top: 2.5%;
-    border-radius: 0 30px 30px 0;
 }
 
 .buss-front::after {
     content: '';
+    width: 30%;
+    height: 95%;
+    background-color: #6B6A6A;
     position: absolute;
-    width: 50px;
-    height: 50px;
-    right: 20%;
-    top: 10%;
-    background: #6B6A6A;
-    border-radius: 50%;
-    border: 5px solid #eecca6;
+    right: 2%;
+    top: 2.5%;
+    border-radius: 0 40px 40px 0;
+    z-index: 1;
 }
 
-.buss-front div {
+.steering-wheel {
+    width: 50px;
+    height: 50px;
+    background: var(--color-fondo);
+    position: absolute;
+    right: 20%;
+    top: 10%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #6B6A6A;
+    box-shadow: 0 0 0 5px var(--color-fondo);
+    z-index: 2;
+}
+
+.steering-wheel::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: -35px;
+    top: -5px;
+    border: 5px solid #6B6A6A;
+    transform: rotate(45deg);
+}
+
+.driver-seat{
     width: 50px;
     height: 40px;
     background: #6B6A6A;
@@ -166,7 +184,7 @@ body {
     top: 14%;
 }
 
-.buss-front div::after {
+.driver-seat::after {
     content: '';
     position: absolute;
     width: 80px;
@@ -181,12 +199,11 @@ body {
 }
 
 .buss-floor-two {
-    border: dashed #6B6A6A;
     display: none;
 }
 
 .container-seatings {
-    border: red dashed;
+    /* border: red dashed; */
     width: 80%;
     height: 100%;
 
@@ -218,9 +235,13 @@ body {
 }
 
 .seatings-satatus, .tiket-seats {
-    border: dashed;
+    /* border: dashed; */
     width: 40%;
     padding: 10px;
+}
+
+.seatings-satatus li,.tiket-seats li {
+    font-weight: bolder;
 }
 
 .errorMessage {

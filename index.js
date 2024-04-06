@@ -200,7 +200,7 @@ function buySeats (selectedSeatsIds, selectedSeatsPrice) {
     console.log(selectedSeatsIds);
     console.log(selectedSeatsPrice);
 
-    tiketSeats.innerHTML = `<li>Asientos: ${selectedSeatsIds.length}</li>
+    tiketSeats.innerHTML = `<li>Asientos comprados: ${selectedSeatsIds.length}</li>
                             <li>Total: ${suma}</li>`
 }
 
