@@ -5,12 +5,15 @@ const contanerseatsOne = document.getElementById('container-seatings-one');
 const contanerseatsTwo = document.getElementById('container-seatings-two');
 let normalSeatSvg = document.querySelector('.normal');
 let bedSeatSvg = document.querySelector('.cama');
+let stairs = document.getElementById('stairs')
 const btnBuySeats = document.getElementById('buy-seats');
 const seatingsStatus = document.getElementById('seatings-satatus');
 const tiketSeats = document.getElementById('tiket-seats');
 
-normalSeatSvg=  normalSeatSvg.cloneNode(true)
-bedSeatSvg = bedSeatSvg.cloneNode(true)
+
+normalSeatSvg=  normalSeatSvg.cloneNode(true);
+bedSeatSvg = bedSeatSvg.cloneNode(true);
+stairs = stairs.cloneNode(true);
 
 let seatsWindow = [1,3,5,7,9,11,13,15,18,20,22,24,26,28,30,32,35,37,39,41,43,45,47,49,51,53,36,73,74,72,70,68,66,64,62,60,58,56]
 
@@ -18,8 +21,8 @@ const seatObj = {
     id: null ,
     precio: 800,
     destino: 'Muy muy lejano',
-    disponible: 'si',
-    ventana: 'nel'
+    disponible: 'Si',
+    ventana: 'No'
 }
 
 function addSeatInformation (seatObj, seatType) {
@@ -31,14 +34,15 @@ function addSeatInformation (seatObj, seatType) {
 addSeatInformation(seatObj, normalSeatSvg)
 addSeatInformation(seatObj, bedSeatSvg)
 
-function createSeats(container, start, end, seatType) {
+function createSeats(container, start, end, seatType, stairs) {
     for (let i = start; i < end; i++) {
         const seat = document.createElement('div');
         seat.className = `div${i} seat`;
+        seatType.style.cursor = 'pointer'
         seatType.dataset.id = `${i}`;
         
         assignPrice(seatType);
-        assignStairs(seat, seatType)
+        assignStairsAndSeaats(seat, seatType, stairs);
         
         container.appendChild(seat);
     }
@@ -52,10 +56,15 @@ function assignPrice(seatType) {
     }
 }
 
-function assignStairs (seat,seatType) {
-    if (seatType.dataset.id == '33' ||  seatType.dataset.id == '34' || seatType.dataset.id == '75' || seatType.dataset.id == '76') {
-            seat.appendChild(seatType.cloneNode(false));
-            seat.innerHTML = 'Escaleras'
+function assignStairsAndSeaats (seat,seatType,stairs) {
+    if (seatType.dataset.id == '33' ||  
+        seatType.dataset.id == '34' || 
+        seatType.dataset.id == '75' || 
+        seatType.dataset.id == '76') {
+            stairs.style.width = '120px';
+            stairs.setAttribute('viewBox', "2.000 10.000 25.374 5.424" );
+            stairs.style.transform = 'rotate(85deg)';
+            seat.appendChild(stairs.cloneNode(true));
         } else {
             seat.appendChild(seatType.cloneNode(true));
         }
@@ -65,7 +74,7 @@ function assignWindowProperty (seats) {
     seats.forEach((seat) => {
         const id = Number(seat.dataset.id);
         if (seatsWindow.includes(id)) {
-            seat.dataset.ventana = 'obvio';
+            seat.dataset.ventana = 'Si';
         }
     });
     occupiedRandom(seats);
@@ -80,7 +89,12 @@ function select (container) {
 
 function handleSeatSelection (e) {
     const seat = e.target.closest('svg');
-    if (!seat) {
+    if (!seat ) {
+        return;
+    }
+
+    if (seat.id == 'stairs') {
+        e.preventDefault();
         return;
     }
     
@@ -118,27 +132,39 @@ function selectSeat(seat) {
 
     selectedSeatsIds.push(seat.dataset.id);
     selectedSeatsPrice.push(seat.dataset.precio);
-    // console.log(selectedSeatsIds);
-    // console.log(selectedSeatsPrice);
-    seatingsStatus.innerHTML = `<li>Asiento: ${seat.dataset.id}</li>
-                                <li>Precio: ${seat.dataset.precio}</li>
-                                <li>Destino: ${seat.dataset.destino}</li>
-                                <li>Disponible: ${seat.dataset.disponible}</li>
-                                <li>Ventana: ${seat.dataset.ventana}</li>
-                                `
+  
+    const div = document.createElement('div');
+
+    div.innerHTML = `<li>Asiento: ${seat.dataset.id}</li>
+                    <li>Precio: ${seat.dataset.precio}</li>
+                    `
+    div.id = seat.dataset.id;
+    seatingsStatus.appendChild(div);
+
+    // <li>Destino: ${seat.dataset.destino}</li>
+    // <li>Disponible: ${seat.dataset.disponible}</li>
+    // <li>Ventana: ${seat.dataset.ventana}</li>
 }
 
 function deselectSeat(seat) {
 
     unmarkSelectedSeat(seat);
+
+    const divs = seatingsStatus.querySelectorAll('div');
+    divs.forEach((div) => {
+        if (div.id == seat.dataset.id) {
+            div.classList.add('remove-div')
+            setTimeout(()=> {
+                div.remove()
+            },500)
+        }
+    })
     
     const index = selectedSeatsIds.indexOf(seat.dataset.id)
     if (index !== -1) {
         selectedSeatsIds.splice(index,1)
         selectedSeatsPrice.splice(index,1)
     }
-
-    seatingsStatus.innerHTML = ``
 }
 
 function markSelectedSeat (seat) {
@@ -154,18 +180,13 @@ function unmarkSelectedSeat(seat) {
 }
 
 function occupiedRandom (seats) {
-    // creando lista falsa de asientos compardos
     const seatsOccupied = []
     for (let i = 0; i < 40; i++) {
         seatsOccupied.push(Math.floor(Math.random(i) * 77));
     }
-    // recorer los aientos uno por uno 
     seats.forEach((seat)=> {
-        // obetener los paths de casa asiento
         const path = seat.querySelectorAll('path');
-        // extraigo el id de cada asiento y lo convierto en typo numero 
         const seatId = Number(seat.dataset.id);
-        // comprobar si los ids de los elementos estan dentro de la lista de asientos ocupados radoms
         if (seatsOccupied.includes(seatId)){
             // si lo estan cambiar el color a ocupado
             path[0].classList.add('ocupadoLine');
@@ -221,5 +242,5 @@ function toggleFloors() {
 buttonfloor.innerHTML = 'ir a piso 2';
 buttonfloor.addEventListener('click', toggleFloors);
 
-createSeats(contanerseatsOne, 1, 35, normalSeatSvg);
-createSeats(contanerseatsTwo, 35, 78, bedSeatSvg);
+createSeats(contanerseatsOne, 1, 35, normalSeatSvg, stairs);
+createSeats(contanerseatsTwo, 35, 78, bedSeatSvg, stairs);
