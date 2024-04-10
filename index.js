@@ -133,13 +133,25 @@ function selectSeat(seat) {
     selectedSeatsIds.push(seat.dataset.id);
     selectedSeatsPrice.push(seat.dataset.precio);
   
-    const div = document.createElement('div');
+    const cloneSeat = seat.cloneNode(true);
+    const paths = cloneSeat.querySelectorAll('path')
+    paths[0].classList.remove('selectLine');
+    paths[1].classList.remove('selectFill');
+    cloneSeat.style.cursor = 'initial';
 
-    div.innerHTML = `<li>Asiento: ${seat.dataset.id}</li>
-                    <li>Precio: ${seat.dataset.precio}</li>
+    const container = document.createElement('div');
+    const ul = document.createElement('ul');
+    const span = document.createElement('span');
+    container.id = seat.dataset.id;
+    span.appendChild(cloneSeat)
+    container.appendChild(span);
+    container.appendChild(ul)
+
+    ul.innerHTML = `<li>Asiento: ${seat.dataset.id}</li>
+                    <li>Precio: $${seat.dataset.precio}</li>
                     `
-    div.id = seat.dataset.id;
-    seatingsStatus.appendChild(div);
+
+    seatingsStatus.appendChild(container);
 
     // <li>Destino: ${seat.dataset.destino}</li>
     // <li>Disponible: ${seat.dataset.disponible}</li>
@@ -223,8 +235,14 @@ function buySeats (selectedSeatsIds, selectedSeatsPrice) {
     console.log(selectedSeatsIds);
     console.log(selectedSeatsPrice);
 
+    
+
     tiketSeats.innerHTML = `<li>Asientos comprados: ${selectedSeatsIds.length}</li>
-                            <li>Total: ${suma}</li>`
+                            <li>Asientos: ${selectedSeatsIds}</li>
+                            <li>Total: ${suma}</li>
+                            `
+
+                        
 }
 
 btnBuySeats.addEventListener('click', () => {
