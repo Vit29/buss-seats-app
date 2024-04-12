@@ -98,7 +98,7 @@ function handleSeatSelection (e) {
         return;
     }
     
-    if (seat.dataset.disponible == 'no'){
+    if (seat.dataset.disponible == 'No'){
         showError(seat,'ocupado');
         return;
     }
@@ -123,16 +123,16 @@ function showError (seat,message) {
 }
 
 function isSelected(seat) {
+    // console.log(selectedSeatsIds.includes(seat.dataset.id));
     return selectedSeatsIds.includes(seat.dataset.id);
 }
 
 function selectSeat(seat) {
     
     markSelectedSeat(seat)
-
     selectedSeatsIds.push(seat.dataset.id);
     selectedSeatsPrice.push(seat.dataset.precio);
-  
+    
     const cloneSeat = seat.cloneNode(true);
     const paths = cloneSeat.querySelectorAll('path')
     paths[0].classList.remove('selectLine');
@@ -148,10 +148,14 @@ function selectSeat(seat) {
     container.appendChild(ul)
 
     ul.innerHTML = `<li>Asiento: ${seat.dataset.id}</li>
-                    <li>Precio: $${seat.dataset.precio}</li>
+                    <li>Precio: $ ${seat.dataset.precio}</li>
+                    <li>Ventana: $ ${seat.dataset.ventana}</li>
                     `
+    const firstChild = seatingsStatus.firstChild;
+    
+    seatingsStatus.insertBefore(container, firstChild);
 
-    seatingsStatus.appendChild(container);
+    // console.log(seat.dataset.disponible);
 
     // <li>Destino: ${seat.dataset.destino}</li>
     // <li>Disponible: ${seat.dataset.disponible}</li>
@@ -164,6 +168,7 @@ function deselectSeat(seat) {
 
     const divs = seatingsStatus.querySelectorAll('div');
     divs.forEach((div) => {
+       
         if (div.id == seat.dataset.id) {
             div.classList.add('remove-div')
             setTimeout(()=> {
@@ -203,51 +208,69 @@ function occupiedRandom (seats) {
             // si lo estan cambiar el color a ocupado
             path[0].classList.add('ocupadoLine');
             path[1].classList.add('ocupadoFill');
-            seat.dataset.disponible = 'no'
+            seat.dataset.disponible = 'No'
         }
     });
 };
+
 
 function buySeats (selectedSeatsIds, selectedSeatsPrice) {
     if (selectedSeatsIds.length == 0 ) {
         return alert('No haz seleccionado ningun asiento');
     }
-
+    let seat
     selectedSeatsIds.forEach((seatId)=> {
-        const seat = document.querySelector(`[data-id="${seatId}"]`);
+        seat = document.querySelector(`[data-id="${seatId}"]`);
+        seat.setAttribute('data-disponible', 'No');
+        console.log(seat)
         const path = seat.querySelectorAll('path');
         path[0].classList.remove('selectLine');
         path[1].classList.remove('selectFill');
         path[0].classList.add('buyLine');
         path[1].classList.add('buyFill');
+        seat.dataset.disponible = 'No';
+        // setTimeout(foo(path),2000);
         setTimeout(()=> {
             path[0].classList.remove('buyLine');
             path[1].classList.remove('buyFill');
             path[0].classList.add('soldLine');
             path[1].classList.add('soldFill');
-            seat.dataset.disponible = 'no'
+            console.log(seat)
         },2000)
     });
-
 
     const suma = selectedSeatsPrice.reduce((acc,crr) => acc + Number(crr),0);
     console.log('total ', suma);
     console.log(selectedSeatsIds);
     console.log(selectedSeatsPrice);
-
     
 
-    tiketSeats.innerHTML = `<li>Asientos comprados: ${selectedSeatsIds.length}</li>
-                            <li>Asientos: ${selectedSeatsIds}</li>
-                            <li>Total: ${suma}</li>
+    tiketSeats.innerHTML = `<ul>
+                            <li>Total asientos: <span>${selectedSeatsIds.length}</span></li>
+                            <li>Asientos: <span>${selectedSeatsIds}</span></li>
+                            <li>Destino: <span>${seat.dataset.destino}</span></li>
+                            <li>Total: <span>${suma}</span></li>
+                            <ul>
                             `
-
-                        
 }
+
+// function foo(path) {
+//     return function() {
+//         path[0].classList.remove('buyLine');
+//         path[1].classList.remove('buyFill');
+//         path[0].classList.add('soldLine');
+//         path[1].classList.add('soldFill');
+//     }
+// }
+
+
+
 
 btnBuySeats.addEventListener('click', () => {
     buySeats(selectedSeatsIds,selectedSeatsPrice)
 })
+
+
 
 let isFloorOneVisible = false;
 function toggleFloors() {

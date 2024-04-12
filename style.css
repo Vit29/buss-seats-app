@@ -18,6 +18,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .container {
@@ -256,22 +257,20 @@ body {
     
 }
 
-.seatings-satatus ul {
+.seatings-satatus ul ,.seatings-satatus span{
     padding: 5px;
+    
 }
 
 .seatings-satatus div {
     border: solid 1px #b69505;
-    background-color: #dfb90f;
+    background-color: #dabb33;
     border-radius: 10px;
     margin-bottom: 5px;
+    /* font-size: 0.9rem; */
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-}
-
-.seatings-satatus span {
-    padding: 5px;
 }
 
 .remove-div {
@@ -287,6 +286,21 @@ body {
     font-weight: bolder;
     font-size: 1em;
     list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tiket-seats li {
+    padding: 5px;
+    background-color: #c7bdbd;
+}
+
+.tiket-seats li:nth-child(odd) {
+    background-color: #919090;
+}
+
+.tiket-seats span {
+    color: green;
 }
 
 .errorMessage {
