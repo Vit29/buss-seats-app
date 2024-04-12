@@ -128,10 +128,15 @@ function isSelected(seat) {
 }
 
 function selectSeat(seat) {
-    
+    console.log(selectedSeatsIds.length > 5)
+    if (selectedSeatsIds.length > 5){
+        alert('No pudes comprar mas de 6 aseintos por tiket')
+        return;
+    }
     markSelectedSeat(seat)
     selectedSeatsIds.push(seat.dataset.id);
     selectedSeatsPrice.push(seat.dataset.precio);
+
     
     const cloneSeat = seat.cloneNode(true);
     const paths = cloneSeat.querySelectorAll('path')
@@ -154,8 +159,6 @@ function selectSeat(seat) {
     const firstChild = seatingsStatus.firstChild;
     
     seatingsStatus.insertBefore(container, firstChild);
-
-    // console.log(seat.dataset.disponible);
 
     // <li>Destino: ${seat.dataset.destino}</li>
     // <li>Disponible: ${seat.dataset.disponible}</li>
@@ -222,20 +225,17 @@ function buySeats (selectedSeatsIds, selectedSeatsPrice) {
     selectedSeatsIds.forEach((seatId)=> {
         seat = document.querySelector(`[data-id="${seatId}"]`);
         seat.setAttribute('data-disponible', 'No');
-        console.log(seat)
         const path = seat.querySelectorAll('path');
         path[0].classList.remove('selectLine');
         path[1].classList.remove('selectFill');
         path[0].classList.add('buyLine');
         path[1].classList.add('buyFill');
         seat.dataset.disponible = 'No';
-        // setTimeout(foo(path),2000);
         setTimeout(()=> {
             path[0].classList.remove('buyLine');
             path[1].classList.remove('buyFill');
             path[0].classList.add('soldLine');
             path[1].classList.add('soldFill');
-            console.log(seat)
         },2000)
     });
 
@@ -244,7 +244,6 @@ function buySeats (selectedSeatsIds, selectedSeatsPrice) {
     console.log(selectedSeatsIds);
     console.log(selectedSeatsPrice);
     
-
     tiketSeats.innerHTML = `<ul>
                             <li>Total asientos: <span>${selectedSeatsIds.length}</span></li>
                             <li>Asientos: <span>${selectedSeatsIds}</span></li>
@@ -253,17 +252,6 @@ function buySeats (selectedSeatsIds, selectedSeatsPrice) {
                             <ul>
                             `
 }
-
-// function foo(path) {
-//     return function() {
-//         path[0].classList.remove('buyLine');
-//         path[1].classList.remove('buyFill');
-//         path[0].classList.add('soldLine');
-//         path[1].classList.add('soldFill');
-//     }
-// }
-
-
 
 
 btnBuySeats.addEventListener('click', () => {
